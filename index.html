@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+    <meta charset="UTF-8">
+    <title>Ajax Fácil com jQuery</title>
+    <!-- bootstrap - link cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery - link cdn -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!--AJAX-->
+    <script type="text/javascript">
+        $(document).ready(function(){// Ao carregar a página faça o conteudo abaixo
+            $('.btn_carrega_conteudo').click(function(){// Ao clicar no elemento que contenha a classe .btn_carrega_conteudo faça...
+                            
+            var carrega_url = this.id; //Carregar url pegando os dados pelo ID
+            carrega_url = carrega_url+'_conteudo.html'; //Carregar a url e o conteudo da página
+                            
+                $.ajax({ //Carregar a função ajax embutida no jQuery
+                    url: carrega_url,
+                               
+                    //Variável DATA armazena o conteúdo da requisição
+                    success: function(data){//Caso a requisição seja completada com sucesso faça...
+                        $('#div_conteudo').html(data);// Incluir o conteúdo dentro da DIV
+                    },
+                               
+                    beforeSend: function(){//Antes do envio do cabeçalho faça...
+                        $('#loader').css({display:"block"});//carregar a imagem de load
+                    },
+                               
+                    complete: function(){//Após o envio do cabeçalho faça...
+                        $('#loader').css({display:"none"});//esconder a imagem de load
+                    }
+                });  
+            });
+        });
+    </script>
+    <body>
+	<!-- Static navbar -->
+	<nav class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="navbar-header">
+                    <h3>Ajax Fácil com jQuery</h3>
+	        </div>
+	    </div>
+	</nav>
+	<div class="container">
+	    <div class="row">
+	    	<div class="col-md-4 center"></div>
+	    	<div class="col-md-4 center">
+                    <a href="#" class="btn btn-primary btn_carrega_conteudo" id="pagina_1">Página 1</a>
+               	    <a href="#" class="btn btn-primary btn_carrega_conteudo" id="pagina_2">Página 2</a>
+	    	    <a href="#" class="btn btn-primary btn_carrega_conteudo" id="pagina_3">Página 3</a>
+	    	</div>
+	    	<div class="col-md-4 center"></div>
+	    </div>
+	    <br />
+	    <div class="row">
+		<div class="col-md-1"></div>
+                    <div class="col-md-10" id="div_conteudo"><!-- div onde será exibido o conteúdo-->
+                        <img id="loader" src="loader.gif" style="display:none">
+		    </div>	
+                <div class="col-md-1"></div>
+            </div>
+	</div><!-- /container -->	
+    </body>
+</html>
